@@ -1,0 +1,7 @@
+.DS_Store
+/.build
+/.swiftpm
+xcuserdata/
+DerivedData/
+node_modules/
+server/dist/
