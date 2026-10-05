@@ -1,0 +1,86 @@
+{
+	"version": "1.0.0",
+	"hangType": "Main Runloop Hang",
+	"diagnosticMetaData": { "hangDuration": "1 sec", "appBuildVersion": "77" },
+	"callStackTree": {
+		"callStackPerThread": true,
+		"callStacks": [
+			{
+				"threadAttributed": false,
+				"callStackRootFrames": [
+					{
+						"binaryUUID": "DDDDDDDD-DDDD-DDDD-DDDD-DDDDDDDDDDDD",
+						"binaryName": "dyld",
+						"offsetIntoBinaryTextSegment": 1,
+						"sampleCount": 10,
+						"subFrames": [
+							{
+								"binaryUUID": "BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB",
+								"binaryName": "ExampleApp",
+								"offsetIntoBinaryTextSegment": 100,
+								"sampleCount": 10,
+								"subFrames": [
+									{
+										"binaryUUID": "CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC",
+										"binaryName": "UIKitCore",
+										"offsetIntoBinaryTextSegment": 200,
+										"sampleCount": 10,
+										"subFrames": [
+											{
+												"binaryUUID": "CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC",
+												"binaryName": "UIKitCore",
+												"offsetIntoBinaryTextSegment": 300,
+												"sampleCount": 3,
+												"subFrames": [
+													{
+														"binaryUUID": "AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA",
+														"binaryName": "libsystem_kernel.dylib",
+														"offsetIntoBinaryTextSegment": 10,
+														"sampleCount": 3
+													}
+												]
+											},
+											{
+												"binaryUUID": "BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB",
+												"binaryName": "ExampleApp",
+												"offsetIntoBinaryTextSegment": 400,
+												"sampleCount": 7,
+												"subFrames": [
+													{
+														"binaryUUID": "AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA",
+														"binaryName": "libsystem_kernel.dylib",
+														"offsetIntoBinaryTextSegment": 20,
+														"sampleCount": 7
+													}
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			},
+			{
+				"threadAttributed": true,
+				"callStackRootFrames": [
+					{
+						"binaryUUID": "EEEEEEEE-EEEE-EEEE-EEEE-EEEEEEEEEEEE",
+						"binaryName": "libsystem_pthread.dylib",
+						"offsetIntoBinaryTextSegment": 5,
+						"sampleCount": 2,
+						"subFrames": [
+							{
+								"binaryUUID": "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF",
+								"binaryName": "BoardServices",
+								"offsetIntoBinaryTextSegment": 6,
+								"sampleCount": 2
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+}

@@ -1,0 +1,45 @@
+{
+	"version": "1.0.0",
+	"diagnosticMetaData": {
+		"exceptionType": 1,
+		"exceptionCode": 0,
+		"signal": 11,
+		"terminationReason": "Synthetic test crash"
+	},
+	"callStackTree": {
+		"callStackPerThread": true,
+		"callStacks": [
+			{
+				"threadAttributed": false,
+				"callStackRootFrames": [
+					{
+						"binaryUUID": "AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA",
+						"binaryName": "libsystem_kernel.dylib",
+						"offsetIntoBinaryTextSegment": 64,
+						"address": 4294967360
+					}
+				]
+			},
+			{
+				"threadAttributed": true,
+				"callStackRootFrames": [
+					{
+						"binaryUUID": "BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB",
+						"binaryName": "ExampleApp",
+						"offsetIntoBinaryTextSegment": 4096,
+						"address": 4294971392,
+						"subFrames": [
+							{
+								"binaryUUID": "BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB",
+								"binaryName": "ExampleApp",
+								"offsetIntoBinaryTextSegment": 8192,
+								"address": 4294975488
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	"futureDiagnosticField": { "keep": true }
+}
