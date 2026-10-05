@@ -1,0 +1,96 @@
+{
+  "originHash" : "fc3115525bbb3999b7d980f69f1ac36e05db29f600e8c65bb3a3ca60f15c4438",
+  "pins" : [
+    {
+      "identity" : "achtung",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ios-tooling/Achtung.git",
+      "state" : {
+        "revision" : "21301144516ef54453d758ae666b9d6e5632d7c7",
+        "version" : "0.6.1"
+      }
+    },
+    {
+      "identity" : "chronicle",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ios-tooling/Chronicle",
+      "state" : {
+        "revision" : "ea56f5a98285bdd44eafbb3caeb3781b6a81aba6",
+        "version" : "0.0.35"
+      }
+    },
+    {
+      "identity" : "cloudseeding",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ios-tooling/cloudseeding",
+      "state" : {
+        "revision" : "a5efb7bd18f8737390163f48f7d9a35b0f619c19",
+        "version" : "0.2.4"
+      }
+    },
+    {
+      "identity" : "crossplatformkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ios-tooling/CrossPlatformKit.git",
+      "state" : {
+        "revision" : "c1848d1e9c8832e66f013159e7f055ea8dc413e5",
+        "version" : "1.1.4"
+      }
+    },
+    {
+      "identity" : "feedbackkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ios-tooling/FeedbackKit",
+      "state" : {
+        "revision" : "64f518da096dc2e2a03aa4b7d6cdcbc2df4a137c",
+        "version" : "0.2.2"
+      }
+    },
+    {
+      "identity" : "newshelicopter",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ios-tooling/NewsHelicopter",
+      "state" : {
+        "revision" : "a2994e977c027d274f8bdd7bac1812eaa9ce8d5e",
+        "version" : "0.1.0"
+      }
+    },
+    {
+      "identity" : "suite",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ios-tooling/Suite.git",
+      "state" : {
+        "revision" : "95116e4683826b715b520716dcd6e16e9fa0e8b8",
+        "version" : "1.4.22"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-syntax",
+      "state" : {
+        "revision" : "79e4b74a295b6eb74a8b585e3a39d29e70c1dbd1",
+        "version" : "603.0.2"
+      }
+    },
+    {
+      "identity" : "tagalong",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ios-tooling/TagAlong",
+      "state" : {
+        "revision" : "9f8a8e8be5f583d53afb337e5c13f35516279df4",
+        "version" : "0.0.7"
+      }
+    },
+    {
+      "identity" : "tapedeck",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ios-tooling/TapeDeck.git",
+      "state" : {
+        "revision" : "a7025538d297567fce4b8441f5090535b00b8d02",
+        "version" : "0.4.4"
+      }
+    }
+  ],
+  "version" : 3
+}
