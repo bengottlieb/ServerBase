@@ -3,7 +3,9 @@ import { z } from 'zod'
 // The headers of a dSYM upload: one binary's identity, sent beside its gzipped DWARF. The header prefix belongs to the
 // app (`x-<app>-`), so it is a parameter.
 
-const UUID = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i
+// Character classes rather than the `i` flag: Fastify validates these as JSON Schema patterns, which carry no flags.
+const UUID = /^[0-9a-fA-F]{8}(?:-[0-9a-fA-F]{4}){3}-[0-9a-fA-F]{12}$/
+const VMADDR = /^(?:\d{1,19}|0x[0-9a-fA-F]{1,16})$/
 export const SYMBOL_ARCHITECTURES = ['arm64', 'arm64e', 'x86_64', 'x86_64h'] as const
 /** The largest __TEXT vmaddr that still fits a signed 64-bit column. */
 const MAX_VMADDR = 0x7fffffffffffffffn
@@ -31,8 +33,9 @@ export function symbolUploadHeaders(prefix: string) {
 		[`${prefix}app-build`]: z.string().max(40).optional(),
 		[`${prefix}text-vmaddr`]: z
 			.string()
-			.regex(/^(?:\d{1,19}|0x[0-9a-f]{1,16})$/i)
-			.refine((value) => BigInt(value) <= MAX_VMADDR, 'vmaddr out of range'),
+			.regex(VMADDR)
+			// Only a well-formed value reaches BigInt; a malformed one is already refused above, with a 400, not a throw.
+			.refine((value) => !VMADDR.test(value) || BigInt(value) <= MAX_VMADDR, 'vmaddr out of range'),
 	})
 }
 

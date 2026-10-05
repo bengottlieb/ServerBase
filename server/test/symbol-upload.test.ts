@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { bearerMatches, parseSymbolUpload } from '../src/index.js'
+import { z, ZodError } from 'zod'
+import { bearerMatches, parseSymbolUpload, symbolUploadHeaders } from '../src/index.js'
 
 // A dSYM upload names its binary in headers; a wrong UUID or vmaddr would attach DWARF to the wrong crash frames. The
 // header prefix is the app's, so it is a parameter.
@@ -39,6 +40,21 @@ describe('symbol upload headers', () => {
 			{ 'app-version': 'x'.repeat(41) },
 		]
 		for (const over of bad) expect(() => parseSymbolUpload(headers('x-one-', over), 'x-one-')).toThrow()
+	})
+	// A malformed vmaddr must come back as a validation error (a 400), not BigInt's SyntaxError (a 500).
+	it('refuses a malformed vmaddr as a validation error', () => {
+		for (const vmaddr of ['zz', '0xzz', '']) {
+			expect(() => parseSymbolUpload(headers('x-one-', { 'text-vmaddr': vmaddr }), 'x-one-')).toThrow(ZodError)
+		}
+	})
+	// Servers validate these headers through Fastify, which turns the schema into JSON Schema and drops regex flags.
+	// Upper-case UUIDs (what dSYM uploads send) and hex must still match there.
+	it('accepts upper-case UUIDs and hex once turned into JSON Schema', () => {
+		const schema = z.toJSONSchema(symbolUploadHeaders('x-one-')) as { properties: Record<string, { pattern?: string }> }
+		const pattern = (name: string) => new RegExp(schema.properties[`x-one-${name}`]!.pattern!)
+		expect(pattern('binary-uuid').test('BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB')).toBe(true)
+		expect(pattern('text-vmaddr').test('0x1000000AB')).toBe(true)
+		expect(pattern('text-vmaddr').test('0X100000000')).toBe(false)
 	})
 })
 

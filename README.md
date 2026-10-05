@@ -20,7 +20,7 @@ Shared server and client logic for Standalone apps: the crash-report and support
 
 ## Swift: products
 
-iOS 27 / macOS 27, Swift 6.
+iOS 18 / macOS 15 and later (the oldest system an app using it supports), Swift 6.
 
 - **CrashReporting** (the app): `CrashReporter` (`start(_:)`, `flush()`, `setScreen(_:)`, `note(_:)`, and
   `sendSample()` in Debug) subscribes to MetricKit, moves the crash-reporter extension's NewsHelicopter reports onto

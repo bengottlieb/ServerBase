@@ -7,8 +7,8 @@ import PackageDescription
 let package = Package(
 	name: "ServerBase",
 	platforms: [
-		.iOS(.v27),
-		.macOS(.v27),
+		.iOS(.v18),
+		.macOS(.v15),
 	],
 	products: [
 		.library(name: "CrashReporting", targets: ["CrashReporting"]),
