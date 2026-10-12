@@ -43,14 +43,16 @@ public enum NewsHelicopterIngest {
 	}
 
 	static func diagnostic(for report: NewsHelicopterReport) -> [String: Any] {
+		let termination = report.reason.termination
+		let signalName = signalName(of: report.reason)
 		var metadata: [String: Any] = [
 			"exceptionType": Int(report.reason.exception),
 			"platformArchitecture": "arm64",
 			"osVersion": report.app.osVersion,
-			"terminationReason": "\(report.reason.exceptionName)\(report.reason.signalName.map { " (\($0))" } ?? "")",
+			"terminationReason": "\(report.reason.exceptionName)\(signalName.map { " (\($0))" } ?? "")\(termination.map { ": \($0.name)" } ?? "")",
 		]
-		if let code = report.reason.codes.first { metadata["exceptionCode"] = code }
-		if let signal = report.reason.signalName.flatMap(signalNumber) { metadata["signal"] = signal }
+		metadata.merge(terminationMetadata(termination, codes: report.reason.codes)) { _, new in new }
+		if let signal = signalName.flatMap(signalNumber) { metadata["signal"] = signal }
 		if let headline = report.headline { metadata["exceptionReason"] = headline }
 		if let bundle = report.app.bundleID { metadata["bundleIdentifier"] = bundle }
 		if let version = report.app.version { metadata["appVersion"] = version }

@@ -17,7 +17,7 @@ let package = Package(
 		.library(name: "SupportChat", targets: ["SupportChat"]),
 	],
 	dependencies: [
-		.package(url: "https://github.com/ios-tooling/NewsHelicopter", from: "0.1.0"),
+		.package(url: "https://github.com/ios-tooling/NewsHelicopter", from: "0.2.0"),
 		.package(url: "https://github.com/ios-tooling/Chronicle", from: "0.0.34"),
 		.package(url: "https://github.com/ios-tooling/FeedbackKit", from: "0.2.2"),
 	],

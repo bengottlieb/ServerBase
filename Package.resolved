@@ -1,5 +1,5 @@
 {
-  "originHash" : "fc3115525bbb3999b7d980f69f1ac36e05db29f600e8c65bb3a3ca60f15c4438",
+  "originHash" : "fd11f6d05c22323cd6befa9e4a4ac6ae9b55d2ba5c46d650845ed9ee2bdced09",
   "pins" : [
     {
       "identity" : "achtung",
@@ -51,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ios-tooling/NewsHelicopter",
       "state" : {
-        "revision" : "a2994e977c027d274f8bdd7bac1812eaa9ce8d5e",
-        "version" : "0.1.0"
+        "revision" : "1228c6d317ad2f9c621aa197712f0797475b42b1",
+        "version" : "0.2.0"
       }
     },
     {

@@ -49,6 +49,29 @@ extension NewsHelicopterIngest {
 		return object
 	}
 
+	/// The decoded termination reason, and the code that says the most: the reason's own when the extension was handed
+	/// `[EXC_CRASH, reason]` (whose first code is 10 whatever happened), else the Mach exception's first code.
+	static func terminationMetadata(_ termination: NewsHelicopterReport.TerminationReason?, codes: [UInt64]) -> [String: Any] {
+		guard let termination else { return codes.first.map { ["exceptionCode": $0] } ?? [:] }
+		return [
+			"exceptionCode": termination.code,
+			"terminationNamespace": Int(termination.namespace),
+			"terminationNamespaceName": termination.namespaceName,
+			"terminationCode": termination.code,
+			"terminationName": termination.name,
+		]
+	}
+
+	/// The reason's signal. An extension before NewsHelicopter 0.2.0 stored no termination reason and read the signal
+	/// from the wrong code: SIGBUS for every bad access, SIGKILL for every EXC_RESOURCE and EXC_GUARD. Those are
+	/// dropped; what the reason decodes to is used instead.
+	static func signalName(of reason: NewsHelicopterReport.Reason) -> String? {
+		if let signal = reason.termination?.signalName { return signal }
+		let guessed = reason.terminationReason == nil && NewsHelicopterReport.TerminationReason.isCorpseLayout(reason.codes)
+			&& [EXC_BAD_ACCESS, EXC_RESOURCE, EXC_GUARD].contains(reason.exception)
+		return guessed ? nil : reason.signalName
+	}
+
 	static func signalNumber(_ name: String) -> Int? {
 		switch name {
 		case "SIGABRT": 6
