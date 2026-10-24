@@ -67,6 +67,7 @@ struct NewsHelicopterIngestTests {
 		let caller = try #require((roots[0]["subFrames"] as? [[String: Any]])?.first)
 		#expect(caller["binaryName"] as? String == "ExampleApp")
 		#expect(caller["offsetIntoBinaryTextSegment"] as? String == "4660")
+		#expect(caller["binaryUUID"] as? String == "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee", "lowercased, as MetricKit writes it")
 		let outermost = try #require((caller["subFrames"] as? [[String: Any]])?.first)
 		#expect(outermost["subFrames"] == nil)
 	}
