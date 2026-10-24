@@ -36,8 +36,27 @@ struct CrashReportBoundsTests {
 		let data = try report(stacks: #"{"threadAttributed":true,"callStackRootFrames":[\#(chain(250))]}"#).encoded()
 		#expect(depth(of: data) < 2 * CrashReport.maxFrameDepth + 8)
 		let kept = try offsets(data)
-		#expect(kept == Array(0..<CrashReport.maxFrameDepth), "the innermost frames survive, in order")
+		#expect(kept == Array(0..<32) + Array(234..<250), "both ends survive, in order")
 		#expect(String(decoding: data, as: UTF8.self).contains(#""truncatedFrames":202"#))
+	}
+	@Test func aLinearChainKeepsItsInnerAndOuterEnds() throws {
+		let data = try report(stacks: #"{"callStackRootFrames":[\#(chain(58))]}"#).encoded()
+		#expect(try offsets(data) == Array(0..<32) + Array(42..<58))
+		let text = String(decoding: data, as: UTF8.self)
+		#expect(text.contains(#""truncatedFrames":10"#))
+		#expect(text.components(separatedBy: "truncatedFrames").count == 2, "only the frame before the gap is marked")
+	}
+	@Test func aChainExactlyAtTheLimitIsLeftUntouched() throws {
+		let data = try report(stacks: #"{"callStackRootFrames":[\#(chain(CrashReport.maxFrameDepth))]}"#).encoded()
+		#expect(try offsets(data) == Array(0..<CrashReport.maxFrameDepth))
+		#expect(!String(decoding: data, as: UTF8.self).contains("truncatedFrames"))
+	}
+	@Test func aBranchingTreeKeepsOnlyItsInnermostLevels() throws {
+		let trunk = (0..<50).map { #"{"offsetIntoBinaryTextSegment":\#($0),"subFrames":["# }.joined()
+		let tree = trunk + #"{"offsetIntoBinaryTextSegment":50},{"offsetIntoBinaryTextSegment":51}"# + String(repeating: "]}", count: 50)
+		let data = try report(stacks: #"{"callStackRootFrames":[\#(tree)]}"#).encoded()
+		#expect(try offsets(data) == Array(0..<CrashReport.maxFrameDepth))
+		#expect(String(decoding: data, as: UTF8.self).contains(#""truncatedFrames":4"#))
 	}
 	@Test func aStackBeyondFoundationsParserIsRefusedRatherThanWalked() throws {
 		#expect(throws: (any Error).self) { try report(stacks: #"{"callStackRootFrames":[\#(chain(300))]}"#) }
